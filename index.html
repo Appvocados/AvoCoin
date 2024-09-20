@@ -226,13 +226,19 @@
     height: auto;
 }
 
+h2 {
+    font-size: .8em;
+}
+
     </style>
 </head>
 <body>
     <div class="container">
         <!-- Formulario de Inicio de Sesión -->
         <div id="loginFormContainer">
-            <h1>Inicio de Sesión</h1>
+            <h1>AvoCoin</h1>
+            <h2 id="">Préstamos express</h2>
+            <h3>Inicio de Sesión</h3>
             <form id="loginForm">
                 <input type="tel" id="phone" placeholder="Número de Teléfono" required>
                 <input type="password" id="password" placeholder="Contraseña" required>
@@ -623,7 +629,7 @@
         document.getElementById('selfie').addEventListener('change', (event) => handleFileSelect({ target: { files: event.target.files, dataset: { previewId: 'selfieImagePreview' } } }));
     
 
-        
+
     // Manejo del registro de usuario
 document.getElementById('registerForm').addEventListener('submit', async (event) => {
     event.preventDefault(); // Prevenir envío del formulario
