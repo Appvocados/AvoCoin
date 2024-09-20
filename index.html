@@ -55,7 +55,7 @@
         input:focus, select:focus, textarea:focus {
             outline: none;
             border-color: #00ff77;
-            box-shadow: 0 0 5px rgba(0, 255, 119, 0.5);
+            box-shadow: 0 0 6px rgba(0, 255, 119, 0.5);
         }
 
    
@@ -65,6 +65,8 @@
             margin-bottom: 5px;
             display: block;
         }
+ 
+        /* buttton green normal*/
 
         button {
             background-color: #00ff77;
@@ -82,6 +84,22 @@
             background-color: #0c770c;
         }
 
+    /* buttton green normal*/
+    .bttngreen2 {
+        background-color: #016a32;
+           
+    }
+
+
+     /* buttton coffe */
+
+
+     .bttnCoffe {
+        background-color:rgb(128, 57, 27);
+
+
+     }
+
         /* Estilo para el select */
         select {
             appearance: none;
@@ -89,22 +107,13 @@
             border: 1px solid #ddd;
             border-radius: 5px;
         }
-        button {
-            background-color: #00ff77;
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #0c770c;
-        }
+   
 
           /* Mensajes de error o validación */
           input:invalid {
             border-color: rgb(192, 102, 0);
+            box-shadow: 0 0 7px rgb(192, 102, 0);
+
         }
 
 
@@ -253,13 +262,13 @@ h1 {
 
         <!-- Formulario de Registro -->
         <div id="registerFormContainer" class="hidden">
-            <h2>Registrar Nuevo Usuario</h2>
+            <h3>Registrar Nuevo Usuario</h3>
             <form id="registerForm">
                 <input type="text" id="regName" placeholder="Nombre" required>
                 <input type="tel" id="regPhone" placeholder="Número de Teléfono" required>
-                <input type="email" id="email" placeholder="Correo Electrónico" norequired>
-                <input type="password" id="regPassword" placeholder="Contraseña" required>
-                <input type="password" id="confirmPassword" placeholder="Confirmar Contraseña" required>
+                <input type="email" id="email" placeholder="Correo Electrónico @" norequired>
+                <input type="password" id="regPassword" placeholder="Contraseña ***" required>
+                <input type="password" id="confirmPassword" placeholder="Confirmar Contraseña ***" required>
 
 
 
@@ -277,8 +286,8 @@ h1 {
                 <input type="text" id="cp" placeholder="Código Postal">
                 <input type="text" id="city" placeholder="Localidad o Ciudad">
 
-                <label for="dropdown">Grado de Estudio</label>
-                <select id="dropdown">
+                <label for="study">Grado de Estudio</label>
+                <select id="study">
                 <option value="option1">Primaria</option>
                 <option value="option2">Secundaria</option>
                 <option value="option3">Preparatoria</option>
@@ -290,51 +299,52 @@ h1 {
                 <input type="tex" id="work" placeholder="Trabajo">
                 <input type="number" id="worktime" placeholder="Tiempo en el trabajo en meses">
            
-            
+                
+                    <label for="tipeBanck">Número de cuenta o tarjeta bancaria al que depositaremos el dinero</label>
+                    <select id="tipeBanck">
+                    <option value="Tarjeta débito">Tarjeta débito</option>
+                    <option value="Tarjeta crédito">Tarjeta crédito</option>
+                    <option value="Número de cuenta bancaria">Número de cuenta bancaria</option>
+                    </select>
 
-                <h2>Subir Fotos y Selfie</h2>
+                    <input type="text" id="bankAcount" placeholder="Número de Tarjeta o Cuenta bancaria" maxlength="12">
+                    
                 
                 <!-- Sección para fotos del ID -->
                 <div class="photo-container">
-                    <h3>Fotos del ID</h3>
-                    <label for="frontPhoto">Foto del Frente del ID:</label>
+                    <h3>Identificación Oficial INE</h3>
+                    <label for="frontPhoto">Foto del Frente del INE:</label>
                     <input type="file" id="frontPhoto"   accept="image/*" capture="environment"><br>
                     <div id="frontPreview">
-                        <h4>Vista previa del Frente del ID</h4>
-                        <img id="frontImagePreview" class="preview" src="" alt="Vista previa del frente del ID">
+                        <img id="frontImagePreview" class="preview" src="" alt="Vista previa del frente del INE">
                     </div>
-                    <label for="backPhoto">Foto del Reverso del ID:</label>
+                    <label for="backPhoto">Foto del Reverso del INE:</label>
                     <input type="file" id="backPhoto" accept="image/*" capture="environment"><br>
                     <div id="backPreview">
-                        <h4>Vista previa del Reverso del ID</h4>
-                        <img id="backImagePreview" class="preview" src="" alt="Vista previa del reverso del ID">
+                        <img id="backImagePreview" class="preview" src="" alt="Vista previa del reverso del INE">
                     </div>
                 </div>
 
                 <div class="photo-container">
-                    <h3>Selfie</h3>
-                    <label for="selfie">Tomar Selfie:</label>
+                    <label for="selfie">Reconocimiento facial</label>
                     <input type="file" id="selfie" accept="image/*" capture="user"><br>
                     <div id="selfiePreview">
-                        <h4>Vista previa de la Selfie</h4>
-                        <img id="selfieImagePreview" class="preview" src="" alt="Vista previa de la selfie">
+                        <img id="selfieImagePreview" class="preview" src="" alt="Reconocimiento facial">
                     </div>
                 </div>
 
 
-                <h5>Agregar Referencia</h5>
+                <h5>Referencias</h5>
 
-<!-- Contenedor de referencias -->
-<div id="contenedor-referencias"></div>
+                <!-- Contenedor de referencias -->
+                <div id="contenedor-referencias"></div>
 
-<!-- Botón para agregar referencia -->
-<button type="button" id="agregar-referencia">Agregar referencia</button>
-
-
-
-                <button type="submit" id="registerBtn">Registrar</button>
+                  <!-- Botón para agregar referencia -->
+                  <button type="button" id="agregar-referencia" class="bttngreen2">Agrega referencia</button>
+                  <button type="submit" id="registerBtn">Registrar</button>
             </form>
-            <button id="backToLogin">Volver al Inicio de Sesión</button>
+
+            <button id="backToLogin" class="bttnCoffe">Volver al Inicio de Sesión</button>
         </div>
 
         <!-- Perfil del Usuario -->
@@ -355,20 +365,20 @@ h1 {
                 <label for="loanAmount">Cantidad:</label>
                 <input type="text" id="loanAmount" value="500.00" placeholder="$0.00">
                 <p id="loanRequestStatus"></p>
-                <label for="termAmount">Pazos</label>
+                <label for="termAmount">Plazos</label>
                 <select id="termAmount">
-                    <option value="1">1 plazo, 1 Semana</option>
-                    <option value="2">2 plazos, 2 Semanas</option>
-                    <option value="3">3 plazos, 3 Semanas</option>
-                    <option value="4">4 plazos, 4 semanas</option>
-                    <option value="5">5 plazos, 5 semanas</option>
-                    <option value="6">6 plazos, 6 semanas</option>
-                    <option value="7">7 plazos, 7 semanas</option>
-                    <option value="8">8 plazos, 8 semanas</option>
-                    <option value="9">9 plazos, 9 semanas</option>
-                    <option value="10">10 plazos, 10 semanas</option>
-                    <option value="11">11 plazos, 11 semanas</option>
-                    <option value="12">12 plazos, 12 semanas</option>
+                    <option value="1">1 plazo semanal</option>
+                    <option value="2">2 plazos semanales</option>
+                    <option value="3">3 plazos semanales</option>
+                    <option value="4">4 plazos semanales</option>
+                    <option value="5">5 plazos semanales</option>
+                    <option value="6">6 plazos semanales</option>
+                    <option value="7">7 plazos semanales</option>
+                    <option value="8">8 plazos semanales</option>
+                    <option value="9">9 plazos semanales</option>
+                    <option value="10">10 plazos semanales</option>
+                    <option value="11">11 plazos semanales</option>
+                    <option value="12">12 plazos semanales</option>
                 </select>
 
                 <button id="submitLoanRequest">Enviar Solicitud</button>
@@ -379,7 +389,7 @@ h1 {
             <ul id="loanRequestsList"></ul>
             <h3>Préstamos Aprobados</h3>
             <ul id="approvedRequestsList" class="approved-list"></ul>
-            <button id="logoutBtn">Cerrar Sesión</button>
+            <button id="logoutBtn" class="bttnCoffe" >Cerrar Sesión</button>
         </div>
     </div>
 
@@ -577,6 +587,7 @@ h1 {
         document.getElementById('submitLoanRequest').addEventListener('click', (e) => {
             e.preventDefault();
             const loanAmount = parseFloat(document.getElementById('loanAmount').value);
+            const termAmount = document.getElementById('termAmount').value;
             const userPhone = document.getElementById('profilePhone').textContent;
 
             if (!isNaN(loanAmount) && loanAmount > 0) {
@@ -640,11 +651,21 @@ document.getElementById('registerForm').addEventListener('submit', async (event)
     
     const name = document.getElementById('regName').value;
     const phone = document.getElementById('regPhone').value;
+    const email = document.getElementById('email').value;
     const password = document.getElementById('regPassword').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
-    const email = document.getElementById('email').value;
+    const gender = document.getElementById('gender').value;
     const age = document.getElementById('age').value;
+    const curp = document.getElementById('curp').value;
     const address = document.getElementById('address').value;
+    const cp = document.getElementById('cp').value;
+    const city = document.getElementById('city').value;
+    const study = document.getElementById('study').value;
+    const work = document.getElementById('work').value;
+    const worktime = document.getElementById('worktime').vaue;
+    const tipeBanck = document.getElementById('tipeBanck').value;
+    const bankAcount = document.getElementById('bankAcount').value;
+
 
 
      // Verificar que las contraseñas coincidan
@@ -653,7 +674,6 @@ document.getElementById('registerForm').addEventListener('submit', async (event)
         return; // Salir de la función si las contraseñas no coinciden
     }
 
-  
 
     // Subir fotos
     const frontPhoto = document.getElementById('frontPhoto').files[0];
@@ -680,10 +700,20 @@ document.getElementById('registerForm').addEventListener('submit', async (event)
             await set(userRef, {
                 name,
                 phone,
-                password,
                 email,
+                password,
+                gender,
                 age,
+                curp,
                 address,
+                cp,
+                city,
+                dropdown,
+                study,
+                work,
+                worktime,
+                tipeBanck,
+                bankAcount,
                 frontPhoto: frontPhotoURL,
                 backPhoto: backPhotoURL,
                 selfie: selfieURL
@@ -768,4 +798,3 @@ function agregarContacto(nombre, telefono) {
     </script>
 </body>
 </html>
-
