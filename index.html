@@ -654,16 +654,16 @@ document.getElementById('registerForm').addEventListener('submit', async (event)
     const email = document.getElementById('email').value;
     const password = document.getElementById('regPassword').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
-    const gender = document.getElementById('gender').value;
+    const gender = [...document.querySelectorAll('input[name="gender"]')].find(radio => radio.checked)?.value || '';
     const age = document.getElementById('age').value;
     const curp = document.getElementById('curp').value;
     const address = document.getElementById('address').value;
     const cp = document.getElementById('cp').value;
     const city = document.getElementById('city').value;
-    const study = document.getElementById('study').value;
+    const study = document.querySelector('#study').value;
     const work = document.getElementById('work').value;
-    const worktime = document.getElementById('worktime').vaue;
-    const tipeBanck = document.getElementById('tipeBanck').value;
+    const worktime = document.getElementById('worktime').value;
+    const selectedBankOption = document.querySelector('#tipeBanck').value;
     const bankAcount = document.getElementById('bankAcount').value;
 
 
