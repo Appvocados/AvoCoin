@@ -337,10 +337,74 @@ h1 {
                 <h5>Referencias</h5>
 
                 <!-- Contenedor de referencias -->
-                <div id="contenedor-referencias"></div>
+                <div id="reference1">
+                    <input type="text" id="" class="nameReferance" placeholder="Nombre Referencia 1">
+                    <input type="text" id="" class="telReferance" placeholder="Telefono Referencia 1">
+                    <input type="text" id="" class="RelatReferance" placeholder="Parenteso Referencia 1">
+                </div>
+
+                <div id="reference2">
+                    <input type="text" id="" class="nameReferance" placeholder="Nombre Referencia 2">
+                    <input type="text" id="" class="telReferance" placeholder="Telefono Referencia 2">
+                    <input type="text" id="" class="RelatReferance" placeholder="Parenteso Referencia 2">
+                </div>
+
+                <div id="reference3">
+                    <input type="text" id="" class="nameReferance" placeholder="Nombre Referencia 3">
+                    <input type="text" id="" class="telReferance" placeholder="Telefono Referencia 3">
+                    <input type="text" id="" class="RelatReferance" placeholder="Parenteso Referencia 3">
+                </div>
+
+                <div id="reference4">
+                    <input type="text" id="" class="nameReferance" placeholder="Nombre Referencia 4">
+                    <input type="text" id="" class="telReferance" placeholder="Telefono Referencia 4">
+                    <input type="text" id="" class="RelatReferance" placeholder="Parenteso Referencia 4">
+                </div>
+
+
+                <div id="reference5" class="hidden">
+                    <input type="text" id="" class="nameReferance" placeholder="Nombre Referencia 5">
+                    <input type="text" id="" class="telReferance" placeholder="Telefono Referencia 5">
+                    <input type="text" id="" class="RelatReferance" placeholder="Parenteso Referencia 5">
+                </div>
+
+                <div id="reference6" class="hidden">
+                    <input type="text" id="" class="nameReferance" placeholder="Nombre Referencia 6">
+                    <input type="text" id="" class="telReferance" placeholder="Telefono Referencia 6">
+                    <input type="text" id="" class="RelatReferance" placeholder="Parenteso Referencia 6">
+                </div>
+
+                <div id="reference7" class="hidden">
+                    <input type="text" id="" class="nameReferance" placeholder="Nombre Referencia 7">
+                    <input type="text" id="" class="telReferance" placeholder="Telefono Referencia 7">
+                    <input type="text" id="" class="RelatReferance" placeholder="Parenteso Referencia 7">
+                </div>
+
+                <div id="reference8" class="hidden">
+                    <input type="text" id="" class="nameReferance" placeholder="Nombre Referencia 8">
+                    <input type="text" id="" class="telReferance" placeholder="Telefono Referencia 8">
+                    <input type="text" id="" class="RelatReferance" placeholder="Parenteso Referencia 8">
+                </div>
+
+                <div id="reference9" class="hidden">
+                    <input type="text" id="" class="nameReferance" placeholder="Nombre Referencia 9">
+                    <input type="text" id="" class="telReferance" placeholder="Telefono Referencia 9">
+                    <input type="text" id="" class="RelatReferance" placeholder="Parenteso Referencia 9">
+                </div>
+
+                <div id="reference10" class="hidden">
+                    <input type="text" id="" class="nameReferance" placeholder="Nombre Referencia 10">
+                    <input type="text" id="" class="telReferance" placeholder="Telefono Referencia 10">
+                    <input type="text" id="" class="RelatReferance" placeholder="Parenteso Referencia 10">
+                </div>
+
+
+
 
                   <!-- Botón para agregar referencia -->
                   <button type="button" id="agregar-referencia" class="bttngreen2">Agrega referencia</button>
+
+
                   <button type="submit" id="registerBtn">Registrar</button>
             </form>
 
@@ -393,6 +457,23 @@ h1 {
         </div>
     </div>
 
+
+
+    <script>
+        const button = document.getElementById('agregar-referencia');
+        let referenceIndex = 5; // Comenzar desde 5, ya que los primeros 4 están visibles
+
+        button.addEventListener('click', () => {
+            const referenceDiv = document.getElementById(`reference${referenceIndex}`);
+            if (referenceDiv) {
+                referenceDiv.classList.remove('hidden');
+                referenceIndex++;
+            } else {
+                alert('No hay más referencias para agregar.');
+            }
+        });
+    </script>
+
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
         import { getDatabase, ref, set, get, push, onValue, update } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
@@ -413,49 +494,8 @@ h1 {
         const database = getDatabase(app);
         const storage = getStorage(app);
 
-        // Mostrar formulario de registro y ocultar formulario de inicio de sesión
-        document.getElementById('showRegisterForm').addEventListener('click', () => {
-            document.getElementById('loginFormContainer').classList.add('hidden');
-            document.getElementById('registerFormContainer').classList.remove('hidden');
-        });
 
-        // Volver al formulario de inicio de sesión
-        document.getElementById('backToLogin').addEventListener('click', () => {
-            document.getElementById('registerFormContainer').classList.add('hidden');
-            document.getElementById('loginFormContainer').classList.remove('hidden');
-        });
 
-        // Función para obtener la IP del usuario
-        async function getUserIp() {
-            try {
-                const response = await fetch('https://api.ipify.org?format=json');
-                const data = await response.json();
-                return data.ip;
-            } catch (error) {
-                console.error('Error al obtener la IP:', error);
-                return 'IP no disponible';
-            }
-        }
-
-        // Función para obtener la ubicación del usuario
-        function getUserLocation() {
-            if (navigator.geolocation) {
-                return new Promise((resolve) => {
-                    navigator.geolocation.getCurrentPosition(
-                        (position) => {
-                            const { latitude, longitude } = position.coords;
-                            resolve(`Latitud: ${latitude}, Longitud: ${longitude}`);
-                        },
-                        (error) => {
-                            console.error('Error al obtener la ubicación:', error);
-                            resolve('Ubicación no disponible');
-                        }
-                    );
-                });
-            } else {
-                return Promise.resolve('Geolocalización no soportada');
-            }
-        }
 
         // Manejo de inicio de sesión
         document.getElementById('loginForm').addEventListener('submit', async (event) => {
@@ -499,8 +539,37 @@ h1 {
 
 
 
+        // Función para obtener la IP del usuario
+        async function getUserIp() {
+            try {
+                const response = await fetch('https://api.ipify.org?format=json');
+                const data = await response.json();
+                return data.ip;
+            } catch (error) {
+                console.error('Error al obtener la IP:', error);
+                return 'IP no disponible';
+            }
+        }
 
-
+        // Función para obtener la ubicación del usuario
+        function getUserLocation() {
+            if (navigator.geolocation) {
+                return new Promise((resolve) => {
+                    navigator.geolocation.getCurrentPosition(
+                        (position) => {
+                            const { latitude, longitude } = position.coords;
+                            resolve(`Latitud: ${latitude}, Longitud: ${longitude}`);
+                        },
+                        (error) => {
+                            console.error('Error al obtener la ubicación:', error);
+                            resolve('Ubicación no disponible');
+                        }
+                    );
+                });
+            } else {
+                return Promise.resolve('Geolocalización no soportada');
+            }
+        }
 
 
           // Cargar solicitudes y aprobaciones
@@ -616,11 +685,10 @@ h1 {
 
 
 
-
-        // Cierre de sesión
-        document.getElementById('logoutBtn').addEventListener('click', () => {
-            document.getElementById('profileContainer').classList.add('hidden');
-            document.getElementById('loginFormContainer').classList.remove('hidden');
+        // Mostrar formulario de registro y ocultar formulario de inicio de sesión
+        document.getElementById('showRegisterForm').addEventListener('click', () => {
+            document.getElementById('loginFormContainer').classList.add('hidden');
+            document.getElementById('registerFormContainer').classList.remove('hidden');
         });
 
 
@@ -642,148 +710,125 @@ h1 {
         document.getElementById('frontPhoto').addEventListener('change', (event) => handleFileSelect({ target: { files: event.target.files, dataset: { previewId: 'frontImagePreview' } } }));
         document.getElementById('backPhoto').addEventListener('change', (event) => handleFileSelect({ target: { files: event.target.files, dataset: { previewId: 'backImagePreview' } } }));
         document.getElementById('selfie').addEventListener('change', (event) => handleFileSelect({ target: { files: event.target.files, dataset: { previewId: 'selfieImagePreview' } } }));
-    
+
+        
 
 
-    // Manejo del registro de usuario
+
+
+// Manejo del registro de usuario
 document.getElementById('registerForm').addEventListener('submit', async (event) => {
-    event.preventDefault(); // Prevenir envío del formulario
-    
-    const name = document.getElementById('regName').value;
-    const phone = document.getElementById('regPhone').value;
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('regPassword').value;
-    const confirmPassword = document.getElementById('confirmPassword').value;
-    const gender = [...document.querySelectorAll('input[name="gender"]')].find(radio => radio.checked)?.value || '';
-    const age = document.getElementById('age').value;
-    const curp = document.getElementById('curp').value;
-    const address = document.getElementById('address').value;
-    const cp = document.getElementById('cp').value;
-    const city = document.getElementById('city').value;
-    const study = document.querySelector('#study').value;
-    const work = document.getElementById('work').value;
-    const worktime = document.getElementById('worktime').value;
-    const selectedBankOption = document.querySelector('#tipeBanck').value;
-    const bankAcount = document.getElementById('bankAcount').value;
+            event.preventDefault(); // Prevenir envío del formulario
 
+            const name = document.getElementById('regName').value;
+            const phone = document.getElementById('regPhone').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('regPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const age = document.getElementById('age').value;
+            const curp = document.getElementById('curp').value;
+            const address = document.getElementById('address').value;
+            const cp = document.getElementById('cp').value;
+            const city = document.getElementById('city').value;
+            const study = document.querySelector('#study').value;
+            const work = document.getElementById('work').value;
+            const worktime = document.getElementById('worktime').value;
+            const selectedBankOption = document.querySelector('#tipeBanck').value;
+            const bankAcount = document.getElementById('bankAcount').value;
 
+            // Recoger referencias
+            const referencias = [];
+            const referenceDivs = document.querySelectorAll('[id^="reference"]');
+            referenceDivs.forEach(refDiv => {
+                const nameReferance = refDiv.querySelector('.nameReferance').value;
+                const telReferance = refDiv.querySelector('.telReferance').value;
+                const RelatReferance = refDiv.querySelector('.RelatReferance').value;
 
-     // Verificar que las contraseñas coincidan
-    if (password !== confirmPassword) {
-        alert('Las contraseñas no coinciden.');
-        return; // Salir de la función si las contraseñas no coinciden
-    }
-
-
-    // Subir fotos
-    const frontPhoto = document.getElementById('frontPhoto').files[0];
-    const backPhoto = document.getElementById('backPhoto').files[0];
-    const selfie = document.getElementById('selfie').files[0];
-
-    if (frontPhoto && backPhoto && selfie) {
-        try {
-            // Subir fotos a Firebase Storage y obtener URLs
-            const frontPhotoRef = storageRef(storage, `photos/front_${phone}`);
-            const backPhotoRef = storageRef(storage, `photos/back_${phone}`);
-            const selfieRef = storageRef(storage, `photos/selfie_${phone}`);
-
-            await uploadBytes(frontPhotoRef, frontPhoto);
-            await uploadBytes(backPhotoRef, backPhoto);
-            await uploadBytes(selfieRef, selfie);
-
-            const frontPhotoURL = await getDownloadURL(frontPhotoRef);
-            const backPhotoURL = await getDownloadURL(backPhotoRef);
-            const selfieURL = await getDownloadURL(selfieRef);
-
-            // Guardar datos del usuario en la base de datos
-            const userRef = ref(database, 'users/' + phone);
-            await set(userRef, {
-                name,
-                phone,
-                email,
-                password,
-                gender,
-                age,
-                curp,
-                address,
-                cp,
-                city,
-                study,
-                work,
-                worktime,
-                tipeBanck,
-                bankAcount,
-                frontPhoto: frontPhotoURL,
-                backPhoto: backPhotoURL,
-                selfie: selfieURL
+                if (nameReferance || telReferance || RelatReferance) { // Solo agregar si hay datos
+                    referencias.push({ name: nameReferance, tel: telReferance, parentesco: RelatReferance });
+                }
             });
 
-            alert('Usuario registrado exitosamente.');
+            // Verificar que las contraseñas coincidan
+            if (password !== confirmPassword) {
+                alert('Las contraseñas no coinciden.');
+                return; // Salir de la función si las contraseñas no coinciden
+            }
 
-            // Recargar la página después de que el usuario se registre
-            window.location.reload();
+            // Subir fotos
+            const frontPhoto = document.getElementById('frontPhoto').files[0];
+            const backPhoto = document.getElementById('backPhoto').files[0];
+            const selfie = document.getElementById('selfie').files[0];
 
-        } catch (error) {
-            console.error('Error al subir fotos:', error);
-            alert('Error al registrar el usuario. Inténtalo de nuevo.');
-        }
-    } else {
-        alert('Por favor, sube todas las fotos requeridas.');
-    }
-});
+            if (frontPhoto && backPhoto && selfie) {
+                try {
+                    // Subir fotos a Firebase Storage y obtener URLs
+                    const frontPhotoRef = storageRef(storage, `photos/front_${phone}`);
+                    const backPhotoRef = storageRef(storage, `photos/back_${phone}`);
+                    const selfieRef = storageRef(storage, `photos/selfie_${phone}`);
 
-// Contador de referencias
-let contadorReferencias = 0;
+                    await uploadBytes(frontPhotoRef, frontPhoto);
+                    await uploadBytes(backPhotoRef, backPhoto);
+                    await uploadBytes(selfieRef, selfie);
 
-// Referencia al contenedor de referencias
-const contenedorReferencias = document.getElementById('contenedor-referencias');
+                    const frontPhotoURL = await getDownloadURL(frontPhotoRef);
+                    const backPhotoURL = await getDownloadURL(backPhotoRef);
+                    const selfieURL = await getDownloadURL(selfieRef);
 
-// Evento click para agregar referencia
-document.getElementById('agregar-referencia').addEventListener('click', () => {
-    // Incrementar contador de referencias
-    contadorReferencias++;
+                    // Guardar datos del usuario en la base de datos
+                    const userRef = ref(database, 'users/' + phone);
+                    await set(userRef, {
+                        name,
+                        phone,
+                        email,
+                        password,
+                        age,
+                        curp,
+                        address,
+                        cp,
+                        city,
+                        study,
+                        work,
+                        worktime,
+                        tipeBanck: selectedBankOption,
+                        bankAcount,
+                        frontPhoto: frontPhotoURL,
+                        backPhoto: backPhotoURL,
+                        selfie: selfieURL,
+                        referencias // Guardar referencias aquí
+                    });
 
-    // Crear nueva referencia
-    const referencia = document.createElement('div');
-    referencia.className = 'referencia';
+                    alert('Usuario registrado exitosamente.');
 
-    // HTML para la nueva referencia
-    referencia.innerHTML = `
-        <input type="text" id="nombre-referencia-${contadorReferencias}" placeholder="Nombre">
-        <input type="tel" id="telefono-referencia-${contadorReferencias}" placeholder="Teléfono">
-        <input type="text" id="Parentesco-referencia-${contadorReferencias}" placeholder="Parentesco de referencia">
-        <!-- Botón para agregar contacto 
-        <button type="button" id="agregar-contacto-general">Agregar contacto</button> -->
+                    // Recargar la página después de que el usuario se registre
+                    window.location.reload();
 
-    `;
+                } catch (error) {
+                    console.error('Error al guardar el usuario:', error); // Captura de error
+                    alert('Error al registrar el usuario. Inténtalo de nuevo.');
+                }
+            } else {
+                alert('Por favor, sube todas las fotos requeridas.');
+            }
+        });
 
-    // Agregar referencia al contenedor
-    contenedorReferencias.appendChild(referencia);
-});
 
-// Evento click para agregar contacto usando el botón específico
-document.getElementById('agregar-contacto-general').addEventListener('click', () => {
-    // Iterar sobre cada referencia en el contenedor
-    const referencias = document.querySelectorAll('#contenedor-referencias .referencia');
+        
+        // Volver al formulario de inicio de sesión
+        document.getElementById('backToLogin').addEventListener('click', () => {
+            document.getElementById('registerFormContainer').classList.add('hidden');
+            document.getElementById('loginFormContainer').classList.remove('hidden');
+        });
 
-    referencias.forEach(referencia => {
-        // Obtener los valores de nombre y teléfono
-        const nombre = referencia.querySelector('input[type="text"]').value;
-        const telefono = referencia.querySelector('input[type="tel"]').value;
 
-        // Verificar que se hayan ingresado valores
-        if (nombre && telefono) {
-            // Llamar función para agregar contacto
-            agregarContacto(nombre, telefono);
 
-            // Actualizar HTML de la referencia
-            referencia.innerHTML = `
-                <span class="nombre">${nombre}</span>
-                <span class="telefono">${telefono}</span>
-            `;
-        }
-    });
-});
+
+        // Cierre de sesión
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            document.getElementById('profileContainer').classList.add('hidden');
+            document.getElementById('loginFormContainer').classList.remove('hidden');
+        });
+
 
 
 /*
