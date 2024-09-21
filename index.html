@@ -260,157 +260,6 @@ h1 {
             <button id="showRegisterForm">Nuevo Usuario</button>
         </div>
 
-        <!-- Formulario de Registro -->
-        <div id="registerFormContainer" class="hidden">
-            <h3>Registrar Nuevo Usuario</h3>
-            <form id="registerForm">
-                <input type="text" id="regName" placeholder="Nombre" required>
-                <input type="tel" id="regPhone" placeholder="Número de Teléfono" required>
-                <input type="email" id="email" placeholder="Correo Electrónico @" norequired>
-                <input type="password" id="regPassword" placeholder="Contraseña ***" required>
-                <input type="password" id="confirmPassword" placeholder="Confirmar Contraseña ***" required>
-
-
-
-                <div id="gender">
-                <label for="gender">Selecciona tu género:</label>
-                <input type="radio" id="hombre" name="gender" value="hombre">
-                <label for="hombre">Hombre</label>
-                <input type="radio" id="mujer" name="gender" value="mujer">
-                <label for="mujer">Mujer</label>
-                </div>
-
-                <input type="number" id="age" placeholder="Edad" min="18" max="99" norequired>
-                <input tpe="text" id="curp" placeholder="Curp">
-                <input type="text" id="address" placeholder="Domicilio Calle y #" no required>
-                <input type="text" id="cp" placeholder="Código Postal">
-                <input type="text" id="city" placeholder="Localidad o Ciudad">
-
-                <label for="study">Grado de Estudio</label>
-                <select id="study">
-                <option value="Primaria">Primaria</option>
-                <option value="Secundaria">Secundaria</option>
-                <option value="Preparatoria">Preparatoria</option>
-                <option value="Univerdiad">Univerdiad</option>
-                <option value="Maestria">Maestria</option>
-                <option value="Doctorado">Doctorado</option>
-                </select>
-
-                <input type="tex" id="work" placeholder="Trabajo">
-                <input type="number" id="worktime" placeholder="Tiempo en el trabajo en meses">
-           
-                
-                    <label for="tipeBanck">Número de cuenta o tarjeta bancaria al que depositaremos el dinero</label>
-                    <select id="tipeBanck">
-                    <option value="Tarjeta débito">Tarjeta débito</option>
-                    <option value="Tarjeta crédito">Tarjeta crédito</option>
-                    <option value="Número de cuenta bancaria">Número de cuenta bancaria</option>
-                    </select>
-
-                    <input type="text" id="bankAcount" placeholder="Número de Tarjeta o Cuenta bancaria" maxlength="12">
-                    
-                
-                <!-- Sección para fotos del ID -->
-                <div class="photo-container">
-                    <h3>Identificación Oficial INE</h3>
-                    <label for="frontPhoto">Foto del Frente del INE:</label>
-                    <input type="file" id="frontPhoto"   accept="image/*" capture="environment"><br>
-                    <div id="frontPreview">
-                        <img id="frontImagePreview" class="preview" src="" alt="Vista previa del frente del INE">
-                    </div>
-                    <label for="backPhoto">Foto del Reverso del INE:</label>
-                    <input type="file" id="backPhoto" accept="image/*" capture="environment"><br>
-                    <div id="backPreview">
-                        <img id="backImagePreview" class="preview" src="" alt="Vista previa del reverso del INE">
-                    </div>
-                </div>
-
-                <div class="photo-container">
-                    <label for="selfie">Reconocimiento facial</label>
-                    <input type="file" id="selfie" accept="image/*" capture="user"><br>
-                    <div id="selfiePreview">
-                        <img id="selfieImagePreview" class="preview" src="" alt="Reconocimiento facial">
-                    </div>
-                </div>
-
-
-                <h5>Referencias</h5>
-
-                <!-- Contenedor de referencias -->
-                <div id="reference1">
-                    <input type="text" id="" class="nameReferance" placeholder="Nombre Referencia 1">
-                    <input type="text" id="" class="telReferance" placeholder="Telefono Referencia 1">
-                    <input type="text" id="" class="RelatReferance" placeholder="Parenteso Referencia 1">
-                </div>
-
-                <div id="reference2">
-                    <input type="text" id="" class="nameReferance" placeholder="Nombre Referencia 2">
-                    <input type="text" id="" class="telReferance" placeholder="Telefono Referencia 2">
-                    <input type="text" id="" class="RelatReferance" placeholder="Parenteso Referencia 2">
-                </div>
-
-                <div id="reference3">
-                    <input type="text" id="" class="nameReferance" placeholder="Nombre Referencia 3">
-                    <input type="text" id="" class="telReferance" placeholder="Telefono Referencia 3">
-                    <input type="text" id="" class="RelatReferance" placeholder="Parenteso Referencia 3">
-                </div>
-
-                <div id="reference4">
-                    <input type="text" id="" class="nameReferance" placeholder="Nombre Referencia 4">
-                    <input type="text" id="" class="telReferance" placeholder="Telefono Referencia 4">
-                    <input type="text" id="" class="RelatReferance" placeholder="Parenteso Referencia 4">
-                </div>
-
-
-                <div id="reference5" class="hidden">
-                    <input type="text" id="" class="nameReferance" placeholder="Nombre Referencia 5">
-                    <input type="text" id="" class="telReferance" placeholder="Telefono Referencia 5">
-                    <input type="text" id="" class="RelatReferance" placeholder="Parenteso Referencia 5">
-                </div>
-
-                <div id="reference6" class="hidden">
-                    <input type="text" id="" class="nameReferance" placeholder="Nombre Referencia 6">
-                    <input type="text" id="" class="telReferance" placeholder="Telefono Referencia 6">
-                    <input type="text" id="" class="RelatReferance" placeholder="Parenteso Referencia 6">
-                </div>
-
-                <div id="reference7" class="hidden">
-                    <input type="text" id="" class="nameReferance" placeholder="Nombre Referencia 7">
-                    <input type="text" id="" class="telReferance" placeholder="Telefono Referencia 7">
-                    <input type="text" id="" class="RelatReferance" placeholder="Parenteso Referencia 7">
-                </div>
-
-                <div id="reference8" class="hidden">
-                    <input type="text" id="" class="nameReferance" placeholder="Nombre Referencia 8">
-                    <input type="text" id="" class="telReferance" placeholder="Telefono Referencia 8">
-                    <input type="text" id="" class="RelatReferance" placeholder="Parenteso Referencia 8">
-                </div>
-
-                <div id="reference9" class="hidden">
-                    <input type="text" id="" class="nameReferance" placeholder="Nombre Referencia 9">
-                    <input type="text" id="" class="telReferance" placeholder="Telefono Referencia 9">
-                    <input type="text" id="" class="RelatReferance" placeholder="Parenteso Referencia 9">
-                </div>
-
-                <div id="reference10" class="hidden">
-                    <input type="text" id="" class="nameReferance" placeholder="Nombre Referencia 10">
-                    <input type="text" id="" class="telReferance" placeholder="Telefono Referencia 10">
-                    <input type="text" id="" class="RelatReferance" placeholder="Parenteso Referencia 10">
-                </div>
-
-
-
-
-                  <!-- Botón para agregar referencia -->
-                  <button type="button" id="agregar-referencia" class="bttngreen2">Agrega referencia</button>
-
-
-                  <button type="submit" id="registerBtn">Registrar</button>
-            </form>
-
-            <button id="backToLogin" class="bttnCoffe">Volver al Inicio de Sesión</button>
-        </div>
-
         <!-- Perfil del Usuario -->
         <div id="profileContainer" class="hidden">
             <h2>Perfil del Usuario</h2>
@@ -457,6 +306,157 @@ h1 {
         </div>
     </div>
 
+
+     <!-- Formulario de Registro -->
+     <div id="registerFormContainer" class="hidden">
+        <h3>Registrar Nuevo Usuario</h3>
+        <form id="registerForm">
+            <input type="text" id="regName" placeholder="Nombre" required>
+            <input type="tel" id="regPhone" placeholder="Número de Teléfono" required>
+            <input type="email" id="email" placeholder="Correo Electrónico @" norequired>
+            <input type="password" id="regPassword" placeholder="Contraseña ***" required>
+            <input type="password" id="confirmPassword" placeholder="Confirmar Contraseña ***" required>
+
+
+
+            <div id="gender">
+            <label for="gender">Selecciona tu género:</label>
+            <input type="radio" id="hombre" name="gender" value="hombre">
+            <label for="hombre">Hombre</label>
+            <input type="radio" id="mujer" name="gender" value="mujer">
+            <label for="mujer">Mujer</label>
+            </div>
+
+            <input type="number" id="age" placeholder="Edad" min="18" max="99" norequired>
+            <input tpe="text" id="curp" placeholder="Curp">
+            <input type="text" id="address" placeholder="Domicilio Calle y #" no required>
+            <input type="text" id="cp" placeholder="Código Postal">
+            <input type="text" id="city" placeholder="Localidad o Ciudad">
+
+            <label for="study">Grado de Estudio</label>
+            <select id="study">
+            <option value="Primaria">Primaria</option>
+            <option value="Secundaria">Secundaria</option>
+            <option value="Preparatoria">Preparatoria</option>
+            <option value="Univerdiad">Univerdiad</option>
+            <option value="Maestria">Maestria</option>
+            <option value="Doctorado">Doctorado</option>
+            </select>
+
+            <input type="tex" id="work" placeholder="Trabajo">
+            <input type="number" id="worktime" placeholder="Tiempo en el trabajo en meses">
+       
+            
+                <label for="tipeBanck">Número de cuenta o tarjeta bancaria al que depositaremos el dinero</label>
+                <select id="tipeBanck">
+                <option value="Tarjeta débito">Tarjeta débito</option>
+                <option value="Tarjeta crédito">Tarjeta crédito</option>
+                <option value="Número de cuenta bancaria">Número de cuenta bancaria</option>
+                </select>
+
+                <input type="text" id="bankAcount" placeholder="Número de Tarjeta o Cuenta bancaria" maxlength="12">
+                
+            
+            <!-- Sección para fotos del ID -->
+            <div class="photo-container">
+                <h3>Identificación Oficial INE</h3>
+                <label for="frontPhoto">Foto del Frente del INE:</label>
+                <input type="file" id="frontPhoto"   accept="image/*" capture="environment"><br>
+                <div id="frontPreview">
+                    <img id="frontImagePreview" class="preview" src="" alt="Vista previa del frente del INE">
+                </div>
+                <label for="backPhoto">Foto del Reverso del INE:</label>
+                <input type="file" id="backPhoto" accept="image/*" capture="environment"><br>
+                <div id="backPreview">
+                    <img id="backImagePreview" class="preview" src="" alt="Vista previa del reverso del INE">
+                </div>
+            </div>
+
+            <div class="photo-container">
+                <label for="selfie">Reconocimiento facial</label>
+                <input type="file" id="selfie" accept="image/*" capture="user"><br>
+                <div id="selfiePreview">
+                    <img id="selfieImagePreview" class="preview" src="" alt="Reconocimiento facial">
+                </div>
+            </div>
+
+
+            <h5>Referencias</h5>
+
+            <!-- Contenedor de referencias -->
+            <div id="reference1">
+                <input type="text" id="" class="nameReferance" placeholder="Nombre Referencia 1">
+                <input type="text" id="" class="telReferance" placeholder="Telefono Referencia 1">
+                <input type="text" id="" class="RelatReferance" placeholder="Parenteso Referencia 1">
+            </div>
+
+            <div id="reference2">
+                <input type="text" id="" class="nameReferance" placeholder="Nombre Referencia 2">
+                <input type="text" id="" class="telReferance" placeholder="Telefono Referencia 2">
+                <input type="text" id="" class="RelatReferance" placeholder="Parenteso Referencia 2">
+            </div>
+
+            <div id="reference3">
+                <input type="text" id="" class="nameReferance" placeholder="Nombre Referencia 3">
+                <input type="text" id="" class="telReferance" placeholder="Telefono Referencia 3">
+                <input type="text" id="" class="RelatReferance" placeholder="Parenteso Referencia 3">
+            </div>
+
+            <div id="reference4">
+                <input type="text" id="" class="nameReferance" placeholder="Nombre Referencia 4">
+                <input type="text" id="" class="telReferance" placeholder="Telefono Referencia 4">
+                <input type="text" id="" class="RelatReferance" placeholder="Parenteso Referencia 4">
+            </div>
+
+
+            <div id="reference5" class="hidden">
+                <input type="text" id="" class="nameReferance" placeholder="Nombre Referencia 5">
+                <input type="text" id="" class="telReferance" placeholder="Telefono Referencia 5">
+                <input type="text" id="" class="RelatReferance" placeholder="Parenteso Referencia 5">
+            </div>
+
+            <div id="reference6" class="hidden">
+                <input type="text" id="" class="nameReferance" placeholder="Nombre Referencia 6">
+                <input type="text" id="" class="telReferance" placeholder="Telefono Referencia 6">
+                <input type="text" id="" class="RelatReferance" placeholder="Parenteso Referencia 6">
+            </div>
+
+            <div id="reference7" class="hidden">
+                <input type="text" id="" class="nameReferance" placeholder="Nombre Referencia 7">
+                <input type="text" id="" class="telReferance" placeholder="Telefono Referencia 7">
+                <input type="text" id="" class="RelatReferance" placeholder="Parenteso Referencia 7">
+            </div>
+
+            <div id="reference8" class="hidden">
+                <input type="text" id="" class="nameReferance" placeholder="Nombre Referencia 8">
+                <input type="text" id="" class="telReferance" placeholder="Telefono Referencia 8">
+                <input type="text" id="" class="RelatReferance" placeholder="Parenteso Referencia 8">
+            </div>
+
+            <div id="reference9" class="hidden">
+                <input type="text" id="" class="nameReferance" placeholder="Nombre Referencia 9">
+                <input type="text" id="" class="telReferance" placeholder="Telefono Referencia 9">
+                <input type="text" id="" class="RelatReferance" placeholder="Parenteso Referencia 9">
+            </div>
+
+            <div id="reference10" class="hidden">
+                <input type="text" id="" class="nameReferance" placeholder="Nombre Referencia 10">
+                <input type="text" id="" class="telReferance" placeholder="Telefono Referencia 10">
+                <input type="text" id="" class="RelatReferance" placeholder="Parenteso Referencia 10">
+            </div>
+
+
+
+
+              <!-- Botón para agregar referencia -->
+              <button type="button" id="agregar-referencia" class="bttngreen2">Agrega referencia</button>
+
+
+              <button type="submit" id="registerBtn">Registrar</button>
+        </form>
+
+        <button id="backToLogin" class="bttnCoffe">Volver al Inicio de Sesión</button>
+    </div>
 
 
     <script>
@@ -718,99 +718,114 @@ h1 {
 
 // Manejo del registro de usuario
 document.getElementById('registerForm').addEventListener('submit', async (event) => {
-            event.preventDefault(); // Prevenir envío del formulario
+    event.preventDefault(); // Prevenir envío del formulario
 
-            const name = document.getElementById('regName').value;
-            const phone = document.getElementById('regPhone').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('regPassword').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            const age = document.getElementById('age').value;
-            const curp = document.getElementById('curp').value;
-            const address = document.getElementById('address').value;
-            const cp = document.getElementById('cp').value;
-            const city = document.getElementById('city').value;
-            const study = document.querySelector('#study').value;
-            const work = document.getElementById('work').value;
-            const worktime = document.getElementById('worktime').value;
-            const selectedBankOption = document.querySelector('#tipeBanck').value;
-            const bankAcount = document.getElementById('bankAcount').value;
+    const name = document.getElementById('regName').value;
+    const phone = document.getElementById('regPhone').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('regPassword').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+    const age = document.getElementById('age').value;
+    const curp = document.getElementById('curp').value;
+    const address = document.getElementById('address').value;
+    const cp = document.getElementById('cp').value;
+    const city = document.getElementById('city').value;
+    const study = document.querySelector('#study').value;
+    const work = document.getElementById('work').value;
+    const worktime = document.getElementById('worktime').value;
+    const selectedBankOption = document.querySelector('#tipeBanck').value;
+    const bankAcount = document.getElementById('bankAcount').value;
 
-            // Recoger referencias
-            const referencias = [];
-            const referenceDivs = document.querySelectorAll('[id^="reference"]');
-            referenceDivs.forEach(refDiv => {
-                const nameReferance = refDiv.querySelector('.nameReferance').value;
-                const telReferance = refDiv.querySelector('.telReferance').value;
-                const RelatReferance = refDiv.querySelector('.RelatReferance').value;
+    const registrationDate = new Date().toISOString();
 
-                if (nameReferance || telReferance || RelatReferance) { // Solo agregar si hay datos
-                    referencias.push({ name: nameReferance, tel: telReferance, parentesco: RelatReferance });
-                }
-            });
+    // Verificar que todos los campos requeridos estén llenos
+    if (!name || !phone || !password) {
+        alert('Por favor, completa todos los campos.');
+        return;
+    }
 
-            // Verificar que las contraseñas coincidan
-            if (password !== confirmPassword) {
-                alert('Las contraseñas no coinciden.');
-                return; // Salir de la función si las contraseñas no coinciden
-            }
+    // Verificar que las contraseñas coincidan
+    if (password !== confirmPassword) {
+        alert('Las contraseñas no coinciden.');
+        return; // Salir de la función si las contraseñas no coinciden
+    }
 
-            // Subir fotos
-            const frontPhoto = document.getElementById('frontPhoto').files[0];
-            const backPhoto = document.getElementById('backPhoto').files[0];
-            const selfie = document.getElementById('selfie').files[0];
+    const userRef = ref(database, 'users/' + phone);
+    
+    try {
+        const snapshot = await get(userRef);
+        if (snapshot.exists()) {
+            alert('El usuario con este número de teléfono ya está registrado.'); // Mensaje al usuario
+            return; // Salir si el usuario ya existe
+        }
 
-            if (frontPhoto && backPhoto && selfie) {
-                try {
-                    // Subir fotos a Firebase Storage y obtener URLs
-                    const frontPhotoRef = storageRef(storage, `photos/front_${phone}`);
-                    const backPhotoRef = storageRef(storage, `photos/back_${phone}`);
-                    const selfieRef = storageRef(storage, `photos/selfie_${phone}`);
+        // Recoger referencias
+        const referencias = [];
+        const referenceDivs = document.querySelectorAll('[id^="reference"]');
+        referenceDivs.forEach(refDiv => {
+            const nameReferance = refDiv.querySelector('.nameReferance').value;
+            const telReferance = refDiv.querySelector('.telReferance').value;
+            const RelatReferance = refDiv.querySelector('.RelatReferance').value;
 
-                    await uploadBytes(frontPhotoRef, frontPhoto);
-                    await uploadBytes(backPhotoRef, backPhoto);
-                    await uploadBytes(selfieRef, selfie);
-
-                    const frontPhotoURL = await getDownloadURL(frontPhotoRef);
-                    const backPhotoURL = await getDownloadURL(backPhotoRef);
-                    const selfieURL = await getDownloadURL(selfieRef);
-
-                    // Guardar datos del usuario en la base de datos
-                    const userRef = ref(database, 'users/' + phone);
-                    await set(userRef, {
-                        name,
-                        phone,
-                        email,
-                        password,
-                        age,
-                        curp,
-                        address,
-                        cp,
-                        city,
-                        study,
-                        work,
-                        worktime,
-                        tipeBanck: selectedBankOption,
-                        bankAcount,
-                        frontPhoto: frontPhotoURL,
-                        backPhoto: backPhotoURL,
-                        selfie: selfieURL,
-                        referencias // Guardar referencias aquí
-                    });
-
-                    alert('Usuario registrado exitosamente.');
-
-                    // Recargar la página después de que el usuario se registre
-                    window.location.reload();
-
-                } catch (error) {
-                    console.error('Error al guardar el usuario:', error); // Captura de error
-                    alert('Error al registrar el usuario. Inténtalo de nuevo.');
-                }
-            } else {
-                alert('Por favor, sube todas las fotos requeridas.');
+            if (nameReferance || telReferance || RelatReferance) { // Solo agregar si hay datos
+                referencias.push({ name: nameReferance, tel: telReferance, parentesco: RelatReferance });
             }
         });
+
+        // Subir fotos
+        const frontPhoto = document.getElementById('frontPhoto').files[0];
+        const backPhoto = document.getElementById('backPhoto').files[0];
+        const selfie = document.getElementById('selfie').files[0];
+
+        if (frontPhoto && backPhoto && selfie) {
+            // Subir fotos a Firebase Storage y obtener URLs
+            const frontPhotoRef = storageRef(storage, `photos/front_${phone}`);
+            const backPhotoRef = storageRef(storage, `photos/back_${phone}`);
+            const selfieRef = storageRef(storage, `photos/selfie_${phone}`);
+
+            await uploadBytes(frontPhotoRef, frontPhoto);
+            await uploadBytes(backPhotoRef, backPhoto);
+            await uploadBytes(selfieRef, selfie);
+
+            const frontPhotoURL = await getDownloadURL(frontPhotoRef);
+            const backPhotoURL = await getDownloadURL(backPhotoRef);
+            const selfieURL = await getDownloadURL(selfieRef);
+
+            // Guardar datos del usuario en la base de datos
+            await set(userRef, {
+                name,
+                phone,
+                email,
+                password,
+                age,
+                curp,
+                address,
+                cp,
+                city,
+                study,
+                work,
+                worktime,
+                tipeBanck: selectedBankOption,
+                bankAcount,
+                frontPhoto: frontPhotoURL,
+                backPhoto: backPhotoURL,
+                selfie: selfieURL,
+                referencias, // Guardar referencias aquí
+                registrationDate: registrationDate
+            });
+
+            alert('Usuario registrado exitosamente.');
+
+            // Recargar la página después de que el usuario se registre
+            window.location.reload();
+        } else {
+            alert('Por favor, sube todas las fotos requeridas.');
+        }
+    } catch (error) {
+        console.error('Error al registrar el usuario:', error);
+        alert('Error al registrar el usuario. Inténtalo de nuevo.');
+    }
+});
 
 
         
