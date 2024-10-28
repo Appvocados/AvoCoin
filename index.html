@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio de Sesión</title>
+
+    <script async src="https://js.onclckmn.com/static/onclicka.js" data-admpid="248887"></script>
+
     <style>
  body {
             font-family: Arial, sans-serif;
@@ -69,7 +72,7 @@
         /* buttton green normal*/
 
         button {
-            background-color: #00ff77;
+            background-color: #07991a;
             color: white;
             border: none;
             padding: 10px;
@@ -266,18 +269,16 @@ h1 {
         <!-- Perfil del Usuario -->
         <div id="profileContainer" class="hidden">
             <h2>Perfil del Usuario</h2>
-            <p>$ </p> 
-            <!-- Contenedor para mostrar totales -->
 <div id="totalsContainer">
-    <p>Total Aprobado: <span id="totalApprovedAmount"></span></p>
-    <p>Monto Aprobado por Plazo: <span id="approvedTotalPerTerm"></span></p>
+    <p><span id="totalApprovedAmount"></span></p>
+    <p>Pago Pendiente: <span id="approvedTotalPerTerm"></span></p>
 </div>
             <p><strong>Hola!</strong> <span id="profileName"></span></p>
             <p><strong>Teléfono:</strong> <span id="profilePhone"></span></p>
-            <p><strong>Contraseña:</strong> <span id="profilePassword"></span></p>
-            <p><strong>Dirección IP:</strong> <span id="profileIp"></span></p>
-            <p><strong>Ubicación:</strong> <span id="profileLocation"></span></p>
-            <p><strong>Última Hora de Sesión:</strong> <span id="profileLastLogin"></span></p>
+
+            <div id="pendingRequestMessage" style="display: none; color: red;">
+                Solicitud de préstamo pendiente.
+            </div>
           
             <button id="requestLoanBtn">Solicitar Préstamo</button>
 
@@ -305,21 +306,28 @@ h1 {
                 <button id="submitLoanRequest">Enviar Solicitud</button>
             </div>
 
+            <!-- Botón para mostrar/ocultar solicitudes -->
+<button id="toggleRequestsButton">Mostrar solicitudes</button>
 
-            <h3>Solicitudes Pendientes</h3>
-            <ul id="loanRequestsList"></ul>
-            <h3>Préstamos Aprobados</h3>
-            <ul id="approvedRequestsList" class="approved-list"></ul>
+<!-- Div con solicitudes inicialmente oculto -->
+<div id="RequestsDiv" style="display: none;">
+    <h3>Préstamos Aprobados</h3>
+    <ul id="approvedRequestsList" class="approved-list"></ul>
+    <h3>Solicitudes Pendientes</h3>
+    <ul id="loanRequestsList"></ul>
+</div>
 
-             <!-- Totales -->
-        <div>
-            <h3>Total Aprobado: <span id="totalApprovedAmount">$0.00</span></h3>
-            <h3>Monto por Plazo: <span id="approvedTotalPerTerm">$0.00 por plazo</span></h3>
-        </div>
+            <!-- Botón para mostrar/ocultar información personal -->
+<button id="toggleInfoButton">Mostrar información personal</button>
 
-        <div id="pendingRequestMessage" style="display: none; color: red;">
-            Solicitud de préstamo pendiente.
-        </div>
+<!-- Div con información personal inicialmente oculto -->
+<div id="personalInfo" style="display: none;">
+    <p><strong>Dirección IP:</strong> <span id="profileIp"></span></p>
+    <p><strong>Ubicación:</strong> <span id="profileLocation"></span></p>
+    <p><strong>Última Hora de Sesión:</strong> <span id="profileLastLogin"></span></p>
+    <p><strong>Contraseña:</strong> <span id="profilePassword"></span></p>
+    <p>Si no reconoces estos datos contactate con nuestro equipo.</p>
+</div>
         
 
         <button id="logoutBtn" class="bttnCoffe" >Cerrar Sesión</button>
@@ -776,8 +784,7 @@ function loadRequests(phone) {
             li.innerHTML = `
                 Monto: ${amount} (Solicitado el ${new Date(request.timestamp).toLocaleString()}) - Estado: ${getStatusText(status)}
                 <div class="status-buttons">
-                    <button onclick="updateRequestStatus('${phone}', '${childSnapshot.key}', 'aceptado')">Aceptar</button>
-                    <button onclick="updateRequestStatus('${phone}', '${childSnapshot.key}', 'cancelado')">Cancelar</button>
+                    
                 </div>
             `;
             requestsList.appendChild(li);
@@ -919,6 +926,13 @@ function sendLoanRequest(loanAmount, termAmount, userPhone) {
             term: termAmount
         })
         .then(() => {
+            // Guardar la última cantidad y plazo en el perfil del usuario
+            const userRef = ref(database, 'users/' + userPhone);
+            update(userRef, {
+                lastLoanAmount: loanAmount,
+                lastLoanTerm: termAmount
+            });
+
             showSuccessMessage();
             clearLoanAmountInput();
             loadRequests(userPhone);
@@ -926,8 +940,11 @@ function sendLoanRequest(loanAmount, termAmount, userPhone) {
         .catch((error) => {
             showErrorMessage(error.message);
         });
+    }).catch((error) => {
+        alert('Error al verificar solicitudes: ' + error.message);
     });
 }
+
 
 // Agregar evento click al botón de enviar solicitud
 submitLoanRequestButton.addEventListener('click', (e) => {
@@ -944,6 +961,41 @@ submitLoanRequestButton.addEventListener('click', (e) => {
 });
 
 
+// Obtener elementos del DOM
+const toggleRequestsButton = document.getElementById('toggleRequestsButton');
+const requestsDiv = document.getElementById('RequestsDiv');
+
+// Función para toggle visibilidad del div
+function toggleRequestsVisibility() {
+    if (requestsDiv.style.display === 'none') {
+        requestsDiv.style.display = 'block';
+        toggleRequestsButton.textContent = 'Ocultar solicitudes';
+    } else {
+        requestsDiv.style.display = 'none';
+        toggleRequestsButton.textContent = 'Mostrar solicitudes';
+    }
+}
+
+// Agregar evento click al botón
+toggleRequestsButton.addEventListener('click', toggleRequestsVisibility);
+
+// Obtener elementos del DOM
+const toggleInfoButton = document.getElementById('toggleInfoButton');
+const personalInfoDiv = document.getElementById('personalInfo');
+
+// Función para toggle visibilidad del div
+function toggleInfoVisibility() {
+    if (personalInfoDiv.style.display === 'none') {
+        personalInfoDiv.style.display = 'block';
+        toggleInfoButton.textContent = 'Ocultar información personal';
+    } else {
+        personalInfoDiv.style.display = 'none';
+        toggleInfoButton.textContent = 'Mostrar información personal';
+    }
+}
+
+// Agregar evento click al botón
+toggleInfoButton.addEventListener('click', toggleInfoVisibility);
 
 
 
