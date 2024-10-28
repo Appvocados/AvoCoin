@@ -243,6 +243,8 @@ h1 {
     color: #109e10;
 }
 
+
+
     </style>
 </head>
 <body>
@@ -264,7 +266,12 @@ h1 {
         <!-- Perfil del Usuario -->
         <div id="profileContainer" class="hidden">
             <h2>Perfil del Usuario</h2>
-            <p>$</p>
+            <p>$ </p> 
+            <!-- Contenedor para mostrar totales -->
+<div id="totalsContainer">
+    <p>Total Aprobado: <span id="totalApprovedAmount"></span></p>
+    <p>Monto Aprobado por Plazo: <span id="approvedTotalPerTerm"></span></p>
+</div>
             <p><strong>Hola!</strong> <span id="profileName"></span></p>
             <p><strong>Teléfono:</strong> <span id="profilePhone"></span></p>
             <p><strong>Contraseña:</strong> <span id="profilePassword"></span></p>
@@ -303,7 +310,22 @@ h1 {
             <ul id="loanRequestsList"></ul>
             <h3>Préstamos Aprobados</h3>
             <ul id="approvedRequestsList" class="approved-list"></ul>
-            <button id="logoutBtn" class="bttnCoffe" >Cerrar Sesión</button>
+
+             <!-- Totales -->
+        <div>
+            <h3>Total Aprobado: <span id="totalApprovedAmount">$0.00</span></h3>
+            <h3>Monto por Plazo: <span id="approvedTotalPerTerm">$0.00 por plazo</span></h3>
+        </div>
+
+        <div id="pendingRequestMessage" style="display: none; color: red;">
+            Solicitud de préstamo pendiente.
+        </div>
+        
+
+        <button id="logoutBtn" class="bttnCoffe" >Cerrar Sesión</button>
+
+    </div>
+            
         </div>
    
 
@@ -516,7 +538,21 @@ document.getElementById('loginForm').addEventListener('submit', async (event) =>
         // Mostrar información del perfil
         document.getElementById('profileName').textContent = snapshot.val().name;
         document.getElementById('profilePhone').textContent = phone;
-        document.getElementById('profilePassword').textContent = password;
+        document.getElementById('profilePassword').textContent = password; 
+
+
+         // Cargar solicitudes y mostrar totales
+         loadRequests(phone); // Cargar solicitudes al iniciar sesión
+
+
+
+         // Cargar la última cantidad y plazo
+        const lastLoanAmount = snapshot.val().lastLoanAmount || '';
+        const lastLoanTerm = snapshot.val().lastLoanTerm || '';
+
+        loanAmountInput.value = lastLoanAmount; // Mostrar la última cantidad
+        termAmountInput.value = lastLoanTerm; // Mostrar el último plazo
+
 
         // Obtener IP y ubicación
         const ip = await getUserIp();
@@ -567,119 +603,6 @@ function getUserLocation() {
         return Promise.resolve('Geolocalización no soportada');
     }
 }
-
-
-
-
-          // Cargar solicitudes y aprobaciones
-          function loadRequests(phone) {
-            const loanRequestsRef = ref(database, 'users/' + phone + '/loanRequests');
-            onValue(loanRequestsRef, (snapshot) => {
-                const requestsList = document.getElementById('loanRequestsList');
-                const approvedRequestsList = document.getElementById('approvedRequestsList');
-                const totalApprovedAmount = document.getElementById('totalApprovedAmount');
-                let totalApproved = 0;
-
-                requestsList.innerHTML = '';
-                approvedRequestsList.innerHTML = '';
-
-                snapshot.forEach((childSnapshot) => {
-                    const request = childSnapshot.val();
-                    const status = request.status || 'pendiente';
-                    const amount = request.amount;
-
-                    const li = document.createElement('li');
-                    li.className = getStatusClass(status);
-                    li.innerHTML = `
-                        Monto: ${amount} (Solicitado el ${new Date(request.timestamp).toLocaleString()}) - Estado: ${getStatusText(status)}
-                        <div class="status-buttons">
-                            <button onclick="updateRequestStatus('${phone}', '${childSnapshot.key}', 'aceptado')">Aceptar</button>
-                            <button onclick="updateRequestStatus('${phone}', '${childSnapshot.key}', 'cancelado')">Cancelar</button>
-                        </div>
-                    `;
-                    requestsList.appendChild(li);
-
-                    if (status === 'aceptado') {
-                        const approvedLi = document.createElement('li');
-                        approvedLi.className = 'status-aprobado';
-                        approvedLi.textContent = `Monto Aprobado: ${amount} (Solicitado el ${new Date(request.timestamp).toLocaleString()})`;
-                        approvedRequestsList.appendChild(approvedLi);
-
-                        // Sumar al total aprobado
-                        totalApproved += amount;
-                    }
-                });
-
-                // Actualizar el total aprobado
-                totalApprovedAmount.textContent = `$${totalApproved.toFixed(2)}`;
-            });
-        }
-
-        // Función para actualizar el estado de una solicitud
-        window.updateRequestStatus = (phone, requestId, status) => {
-            const requestRef = ref(database, 'users/' + phone + '/loanRequests/' + requestId);
-            update(requestRef, { status })
-                .then(() => {
-                    alert(`Préstamo ${status === 'aceptado' ? 'aceptado' : 'cancelado'} exitosamente.`);
-                    loadRequests(phone);
-                })
-                .catch((error) => {
-                    alert('Error al actualizar el estado: ' + error.message);
-                });
-        };
-
-        function getStatusClass(status) {
-            if (status === 'aceptado') {
-                return 'status-aprobado';
-            } else if (status === 'cancelado') {
-                return 'status-cancelado';
-            }
-            return 'status-pendiente';
-        }
-
-        function getStatusText(status) {
-            if (status === 'aceptado') {
-                return 'Aprobado';
-            } else if (status === 'cancelado') {
-                return 'Cancelado';
-            }
-            return 'Pendiente';
-        }
-
-        // Solicitar un préstamo
-        document.getElementById('requestLoanBtn').addEventListener('click', () => {
-            document.getElementById('loanRequestFormContainer').classList.remove('hidden');
-        });
-
-        // Enviar solicitud de préstamo
-        document.getElementById('submitLoanRequest').addEventListener('click', (e) => {
-            e.preventDefault();
-            const loanAmount = parseFloat(document.getElementById('loanAmount').value);
-            const termAmount = document.getElementById('termAmount').value;
-            const userPhone = document.getElementById('profilePhone').textContent;
-
-            if (!isNaN(loanAmount) && loanAmount > 0) {
-                const loanRequestRef = ref(database, 'users/' + userPhone + '/loanRequests/' + Date.now());
-
-                set(loanRequestRef, {
-                    amount: loanAmount,
-                    timestamp: new Date().toISOString(),
-                    status: 'pendiente'
-                })
-                .then(() => {
-                    document.getElementById('loanRequestFormContainer').classList.add('hidden');
-                    document.getElementById('loanRequestStatus').textContent = '¡Solicitud de préstamo enviada, pendiente de aceptación!';
-                    document.getElementById('loanAmount').value = '';
-
-                    loadRequests(userPhone);
-                })
-                .catch((error) => {
-                    document.getElementById('loanRequestStatus').textContent = 'Error al enviar la solicitud: ' + error.message;
-                });
-            } else {
-                alert('Por favor, ingrese una cantidad válida.');
-            }
-        });
 
 
 
@@ -822,14 +745,223 @@ document.getElementById('registerForm').addEventListener('submit', async (event)
 
 
 
+
+// Función para cargar solicitudes y aprobaciones
+function loadRequests(phone) {
+    const loanRequestsRef = ref(database, 'users/' + phone + '/loanRequests');
+    onValue(loanRequestsRef, (snapshot) => {
+        const requestsList = document.getElementById('loanRequestsList');
+        const approvedRequestsList = document.getElementById('approvedRequestsList');
+        const pendingRequestMessage = document.getElementById('pendingRequestMessage'); // Mensaje de solicitud pendiente
+        let totalApproved = 0;
+        let hasPendingRequest = false; // Variable para verificar si hay una solicitud pendiente
+
+        requestsList.innerHTML = '';
+        approvedRequestsList.innerHTML = '';
+
+        snapshot.forEach((childSnapshot) => {
+            const request = childSnapshot.val();
+            const status = request.status || 'pendiente';
+            const amount = request.amount;
+            const term = request.term;
+
+            // Verificar si hay una solicitud pendiente
+            if (status === 'pendiente') {
+                hasPendingRequest = true;
+            }
+
+            // Agregar a la lista de solicitudes
+            const li = document.createElement('li');
+            li.className = getStatusClass(status);
+            li.innerHTML = `
+                Monto: ${amount} (Solicitado el ${new Date(request.timestamp).toLocaleString()}) - Estado: ${getStatusText(status)}
+                <div class="status-buttons">
+                    <button onclick="updateRequestStatus('${phone}', '${childSnapshot.key}', 'aceptado')">Aceptar</button>
+                    <button onclick="updateRequestStatus('${phone}', '${childSnapshot.key}', 'cancelado')">Cancelar</button>
+                </div>
+            `;
+            requestsList.appendChild(li);
+
+            if (status === 'aceptado') {
+                const approvedLi = document.createElement('li');
+                approvedLi.className = 'status-aprobado';
+                approvedLi.textContent = `Monto Aprobado: ${amount} (Solicitado el ${new Date(request.timestamp).toLocaleString()}), Plazo: ${term} meses`;
+                approvedRequestsList.appendChild(approvedLi);
+
+                // Sumar al total aprobado
+                totalApproved += amount;
+            }
+        });
+
+        // Mostrar o ocultar el mensaje de solicitud pendiente
+        if (hasPendingRequest) {
+            pendingRequestMessage.style.display = 'block'; // Mostrar mensaje si hay solicitud pendiente
+        } else {
+            pendingRequestMessage.style.display = 'none'; // Ocultar mensaje si no hay solicitudes pendientes
+        }
+
+        // Calcular y mostrar totales
+        calculateTotals(totalApproved);
+    });
+}
+
+
+// Función para calcular y mostrar totales
+function calculateTotals(totalApproved) {
+    const totalApprovedAmount = document.getElementById('totalApprovedAmount');
+    const approvedTotalPerTerm = document.getElementById('approvedTotalPerTerm');
+
+    // Actualizar el total aprobado
+    totalApprovedAmount.textContent = `$${totalApproved.toFixed(2)}`;
+
+    // Calcular y mostrar el monto por plazo
+    const selectedTerm = document.getElementById('termAmount').value || 1; // Asume 1 si no hay plazo
+    const totalPerTerm = totalApproved / selectedTerm;
+    approvedTotalPerTerm.textContent = `$${totalPerTerm.toFixed(2)} por plazo`;
+}
+
+
+
+
+// Llamar a loadRequests cuando la aplicación se inicia
+document.addEventListener('DOMContentLoaded', () => {
+    const userPhone = userPhoneElement.textContent; // Obtener el número de teléfono del usuario
+    loadRequests(userPhone); // Cargar solicitudes al iniciar
+});
+
+
+
+
+
+// Función para actualizar el estado de una solicitud
+window.updateRequestStatus = (phone, requestId, status) => {
+    const requestRef = ref(database, 'users/' + phone + '/loanRequests/' + requestId);
+    update(requestRef, { status })
+        .then(() => {
+            alert(`Préstamo ${status === 'aceptado' ? 'aceptado' : 'cancelado'} exitosamente.`);
+            loadRequests(phone);
+        })
+        .catch((error) => {
+            alert('Error al actualizar el estado: ' + error.message);
+        });
+};
+
+function getStatusClass(status) {
+    if (status === 'aceptado') {
+        return 'status-aprobado';
+    } else if (status === 'cancelado') {
+        return 'status-cancelado';
+    }
+    return 'status-pendiente';
+}
+
+function getStatusText(status) {
+    if (status === 'aceptado') {
+        return 'Aprobado';
+    } else if (status === 'cancelado') {
+        return 'Cancelado';
+    }
+    return 'Pendiente';
+}
+
+
+
+// Solicitar un préstamo
+document.getElementById('requestLoanBtn').addEventListener('click', () => {
+    document.getElementById('loanRequestFormContainer').classList.remove('hidden');
+});
+
+// Obtener elementos del DOM
+const submitLoanRequestButton = document.getElementById('submitLoanRequest');
+const loanAmountInput = document.getElementById('loanAmount');
+const termAmountInput = document.getElementById('termAmount');
+const userPhoneElement = document.getElementById('profilePhone');
+const loanRequestStatusElement = document.getElementById('loanRequestStatus');
+
+// Función para validar cantidad de préstamo
+function validateLoanAmount(amount) {
+    return !isNaN(amount) && amount > 0;
+}
+
+// Función para crear referencia a la base de datos
+function createLoanRequestRef(userPhone) {
+    return ref(database, 'users/' + userPhone + '/loanRequests/' + Date.now());
+}
+
+// Función para enviar solicitud de préstamo
+function sendLoanRequest(loanAmount, termAmount, userPhone) {
+    const loanRequestRef = createLoanRequestRef(userPhone);
+
+    // Verificar si hay solicitudes pendientes o aprobadas
+    const loanRequestsRef = ref(database, 'users/' + userPhone + '/loanRequests');
+    get(loanRequestsRef).then((snapshot) => {
+        let hasPendingOrApproved = false;
+
+        snapshot.forEach((childSnapshot) => {
+            const request = childSnapshot.val();
+            const status = request.status;
+
+            if (status === 'pendiente' || status === 'aceptado') {
+                hasPendingOrApproved = true;
+            }
+        });
+
+        if (hasPendingOrApproved) {
+            alert('No puedes enviar una nueva solicitud mientras hay solicitudes pendientes o aprobadas.');
+            return; // Salir si hay solicitudes pendientes o aprobadas
+        }
+
+        // Si no hay solicitudes pendientes, proceder a guardar la nueva solicitud
+        set(loanRequestRef, {
+            amount: loanAmount,
+            timestamp: new Date().toISOString(),
+            status: 'pendiente',
+            term: termAmount
+        })
+        .then(() => {
+            // Guardar la última cantidad y plazo en el perfil del usuario
+            const userRef = ref(database, 'users/' + userPhone);
+            update(userRef, {
+                lastLoanAmount: loanAmount,
+                lastLoanTerm: termAmount
+            });
+
+            showSuccessMessage();
+            clearLoanAmountInput();
+            loadRequests(userPhone);
+        })
+        .catch((error) => {
+            showErrorMessage(error.message);
+        });
+    }).catch((error) => {
+        alert('Error al verificar solicitudes: ' + error.message);
+    });
+}
+s
+
+// Agregar evento click al botón de enviar solicitud
+submitLoanRequestButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    const loanAmount = parseFloat(loanAmountInput.value);
+    const termAmount = termAmountInput.value;
+    const userPhone = userPhoneElement.textContent;
+
+    if (validateLoanAmount(loanAmount)) {
+        sendLoanRequest(loanAmount, termAmount, userPhone);
+    } else {
+        alert('Por favor, ingrese una cantidad válida.');
+    }
+});
+
+
+
+
+
         // Cierre de sesión
         document.getElementById('logoutBtn').addEventListener('click', () => {
             document.getElementById('profileContainer').classList.add('hidden');
             document.getElementById('loginFormContainer').classList.remove('hidden');
         });
-
-
-
 
 
 
