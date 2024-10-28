@@ -919,13 +919,6 @@ function sendLoanRequest(loanAmount, termAmount, userPhone) {
             term: termAmount
         })
         .then(() => {
-            // Guardar la última cantidad y plazo en el perfil del usuario
-            const userRef = ref(database, 'users/' + userPhone);
-            update(userRef, {
-                lastLoanAmount: loanAmount,
-                lastLoanTerm: termAmount
-            });
-
             showSuccessMessage();
             clearLoanAmountInput();
             loadRequests(userPhone);
@@ -933,11 +926,8 @@ function sendLoanRequest(loanAmount, termAmount, userPhone) {
         .catch((error) => {
             showErrorMessage(error.message);
         });
-    }).catch((error) => {
-        alert('Error al verificar solicitudes: ' + error.message);
     });
 }
-s
 
 // Agregar evento click al botón de enviar solicitud
 submitLoanRequestButton.addEventListener('click', (e) => {
